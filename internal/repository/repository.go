@@ -1,8 +1,14 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	"github.com/jmoiron/sqlx"
+	"github.com/rkBekzat/films/internal/model"
+)
 
 type Account interface {
+	EmailExist(email string) (bool, error)
+	CreateUser(user *model.User) error
+	GetUser(username, password string) (*model.User, error)
 }
 
 type Repo struct {

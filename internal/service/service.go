@@ -1,8 +1,14 @@
 package service
 
-import "github.com/rkBekzat/films/internal/repository"
+import (
+	"github.com/rkBekzat/films/internal/model"
+	"github.com/rkBekzat/films/internal/repository"
+)
 
 type Account interface {
+	CreateUser(user *model.User) error 
+	GenerateToken(username, password string) (string, error)
+	ParseToken(accessToken string) (string, error)
 }
 
 type Service struct {
@@ -11,6 +17,6 @@ type Service struct {
 
 func NewService(repo *repository.Repo) *Service {
 	return &Service{
-		AuthService: NewAccount(repo.AuthRepo),
+		AuthService: NewAuthorization(repo.AuthRepo),
 	}
 }

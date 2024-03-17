@@ -1,0 +1,56 @@
+basePath: /
+definitions:
+  handler.signInInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: WEB API
+  title: Film API
+  version: "1.0"
+paths:
+  /api/Account/Me:
+    get:
+      consumes:
+      - application/json
+      description: Get information current User
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Information
+      tags:
+      - Account
+  /api/Account/SignIn:
+    post:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.signInInput'
+      produces:
+      - application/json
+      responses: {}
+      summary: SignIn
+      tags:
+      - Account
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

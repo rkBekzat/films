@@ -12,6 +12,17 @@ import (
 	"github.com/spf13/viper"
 )
 
+//	@title			Film API
+//	@version		1.0
+//	@description	WEB API
+
+//	@host		localhost:8080
+//	@basePath	/
+
+//	@securityDefinitions.apikey	ApiKeyAuth
+//	@in							header
+//	@name						Authorization
+
 func main() {
 	if err := initConfig(); err != nil {
 		log.Fatal(err.Error())

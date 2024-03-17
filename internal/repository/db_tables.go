@@ -6,6 +6,7 @@ const (
 		id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 		username VARCHAR(50),
 		email VARCHAR(50) UNIQUE,
+		gender VARCHAR(50),
 		password VARCHAR(256),
 		role VARCHAR(50)
 	);`
