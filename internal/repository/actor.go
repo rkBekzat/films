@@ -43,3 +43,20 @@ func (a *actor) Delete(id string) error {
 	_, err := a.db.Exec(query, id)
 	return err
 }
+
+func (a *actor) Search(text string) ([]model.Actor, error) {
+	var res []model.Actor
+	query := fmt.Sprintf("SELECT * FROM %s WHERE name LIKE $1", actorTable)
+	err := a.db.Select(&res, query, text+"%")
+	return res, err
+}
+
+func (a *actor) FilmedList(id string) ([]model.Film, error) {
+	var res []model.Film
+	query := fmt.Sprintf("SELECT title, description, rating FROM %s INNER JOIN %s WHERE %s.id = %s.film_id WHERE %s.actor_id == $1", filmTable, participantsTable, filmTable, participantsTable, participantsTable)
+	err := a.db.Select(&res, query, id)
+	if err != nil {
+		return nil, err 
+	}
+	return res, nil 
+}

@@ -12,6 +12,9 @@ func (h *Handler) registerActorRoute(router *http.ServeMux) {
 	router.HandleFunc("/api/actor/get", authorizeMiddlWare(adminAccess(h.GetActor), h.service.AuthService))
 	router.HandleFunc("/api/actor/update", authorizeMiddlWare(adminAccess(h.UpdateActorInfo), h.service.AuthService))
 	router.HandleFunc("/api/actor/delete", authorizeMiddlWare(adminAccess(h.DeleteActor), h.service.AuthService))
+
+	router.HandleFunc("/api/actor/search", authorizeMiddlWare(adminAccess(h.Search), h.service.AuthService))
+	router.HandleFunc("/api/actor/film_list", authorizeMiddlWare(adminAccess(h.FilmList), h.service.AuthService))
 }
 
 func (h *Handler) AddActor(w http.ResponseWriter, r *http.Request) {
@@ -75,4 +78,30 @@ func (h *Handler) DeleteActor(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	sendResponse("ok", w)
+}
+
+func (h *Handler) Search(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	params := r.URL.Query()
+	text := params.Get("text")
+
+	res, err := h.service.ActorService.Search(text)
+	if err != nil {
+		sendErr(w, http.StatusBadRequest, err)
+		return
+	}
+	sendResponse(res, w)
+}
+
+func (h *Handler) FilmList(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+	params := r.URL.Query()
+	id := params.Get("actor_id")
+
+	res, err := h.service.ActorService.FilmedList(id)
+	if err != nil {
+		sendErr(w, http.StatusBadRequest, err)
+		return
+	}
+	sendResponse(res, w)
 }

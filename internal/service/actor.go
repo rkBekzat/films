@@ -28,3 +28,11 @@ func (a *actor) Update(user *model.Actor) error {
 func (a *actor) Delete(id string) error {
 	return a.repo.Delete(id)
 }
+
+func (a *actor) Search(text string) ([]model.Actor, error) {
+	return a.repo.Search(text)
+}
+
+func (a *actor) FilmedList(id string) ([]model.Film, error) {
+	return a.FilmedList(id)
+}
