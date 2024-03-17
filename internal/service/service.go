@@ -24,7 +24,7 @@ type Actor interface {
 type Film interface {
 	Create(*model.Film) (string, error)
 	GetById(id string) (*model.Film, error)
-	GetFilms(offset, limit int, sortedBy, order string) ([]model.Film, error)
+	GetFilms(offset, limit, sortedBy, order string) ([]model.Film, error)
 	Search(text string) ([]model.Film, error)
 	Update(*model.Film) error
 	Delete(id string) error
@@ -33,11 +33,13 @@ type Film interface {
 type Service struct {
 	AuthService  Account
 	ActorService Actor
+	FilmService  Film
 }
 
 func NewService(repo *repository.Repo) *Service {
 	return &Service{
-		AuthService: NewAuthorization(repo.AuthRepo),
+		AuthService:  NewAuthorization(repo.AuthRepo),
 		ActorService: NewActor(repo.ActorRepo),
+		FilmService:  NewFilm(repo.FilmRepo),
 	}
 }

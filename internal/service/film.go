@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"strconv"
 
 	"github.com/rkBekzat/films/internal/model"
 	"github.com/rkBekzat/films/internal/repository"
@@ -23,10 +24,19 @@ func (f *film) GetById(id string) (*model.Film, error) {
 	return f.repo.GetById(id)
 }
 
-func (f *film) GetFilms(offset, limit int, sortedBy, order string) ([]model.Film, error) {
+func (f *film) GetFilms(o, l, sortedBy, order string) ([]model.Film, error) {
 	if order != "ASC" && order != "DESC" {
 		return nil, errors.New("this order doesn't exist. Choose ASC or DESC")
 	}
+	offset, err := strconv.Atoi(o)
+	if err != nil {
+		return nil, errors.New("failed to parse offset")
+	}
+	limit, err := strconv.Atoi(l)
+	if err != nil {
+		return nil, errors.New("failed to parse limit")
+	}
+
 	return f.repo.GetFilms(offset, limit, sortedBy, order)
 }
 
