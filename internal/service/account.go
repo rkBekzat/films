@@ -4,6 +4,7 @@ import (
 	"crypto/sha1"
 	"errors"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -20,6 +21,7 @@ const (
 type tokenClaims struct {
 	jwt.StandardClaims
 	UserId string `json:"user_id"`
+	Role   string `json:"role"`
 }
 
 type auth struct {
@@ -49,6 +51,7 @@ func (a *auth) GenerateToken(username, password string) (string, error) {
 
 	user, err := a.repo.GetUser(username, generatePasswordHash(password))
 	if err != nil {
+		log.Println("VERY strange: ", err.Error())
 		return "", err
 	}
 
@@ -58,11 +61,12 @@ func (a *auth) GenerateToken(username, password string) (string, error) {
 			IssuedAt:  time.Now().Unix(),
 		},
 		user.Id,
+		user.Role,
 	})
 	return token.SignedString([]byte(signingKey))
 }
 
-func (a *auth) ParseToken(accessToken string) (string, error) {
+func (a *auth) ParseToken(accessToken string) (string, string, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &tokenClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")
@@ -70,14 +74,14 @@ func (a *auth) ParseToken(accessToken string) (string, error) {
 		return []byte(signingKey), nil
 	})
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	claims, ok := token.Claims.(*tokenClaims)
 	if !ok {
-		return "", errors.New("token claims are not of type")
+		return "", "", errors.New("token claims are not of type")
 	}
-	return claims.UserId, nil
+	return claims.UserId, claims.Role, nil
 }
 
 func generatePasswordHash(password string) string {

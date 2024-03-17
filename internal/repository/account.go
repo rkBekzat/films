@@ -36,7 +36,7 @@ func (a *account) EmailExist(email string) (bool, error) {
 
 func (a *account) GetUser(username, password string) (*model.User, error) {
 	var user model.User
-	query := fmt.Sprintf("SELECT id FROM %s WHERE username=$1 AND password=$2", userTable)
+	query := fmt.Sprintf("SELECT id, role FROM %s WHERE email=$1 AND password=$2", userTable)
 	err := a.db.Get(&user, query, username, password)
 	return &user, err
 }

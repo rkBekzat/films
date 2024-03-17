@@ -8,8 +8,8 @@ import (
 )
 
 func (h *Handler) registerAccountRoute(router *http.ServeMux) {
-	router.HandleFunc("/api/sign_in", h.SignIn)
-	router.HandleFunc("/api/sign_up", h.SignUp)
+	router.HandleFunc("/api/account/sign_in", h.SignIn)
+	router.HandleFunc("/api/account/sign_up", h.SignUp)
 }
 
 // @Summary		Information
@@ -17,9 +17,11 @@ func (h *Handler) registerAccountRoute(router *http.ServeMux) {
 // @Tags			Account
 // @Accept			json
 // @Produce		json
-// @Description	Get information current User
-// @Router			/api/Account/Me [get]
+// @Description	sign up the user
+// @Param			input	body	signUpInput	true	"credentials"
+// @Router			/api/account/sign_up [post]
 func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	var input signUpInput
 
 	log.Println("enter the sign up: ")
@@ -57,8 +59,9 @@ func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 // @Produce		json
 // @Description	login
 // @Param			input	body	signInInput	true	"credentials"
-// @Router			/api/Account/SignIn [post]
+// @Router			/api/account/sign_in [post]
 func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	var input signInInput
 
 	if err := UnmarshalBody(r.Body, &input); err != nil {

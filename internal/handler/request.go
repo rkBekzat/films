@@ -12,3 +12,9 @@ type signInInput struct {
 	Email    string `json:"email" binding:"required"`
 	Password string `json:"password" binding:"required"`
 }
+
+type actorDto struct {
+	Name      string `json:"name" db:"name"`
+	Gender    string `json:"gender" db:"gender"`
+	BirthDate string `json:"birth_date" db:"birth_date"`
+}

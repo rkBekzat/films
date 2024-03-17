@@ -20,8 +20,8 @@ func NewHandler(service *service.Service) *Handler {
 
 func (h *Handler) RegisterRoute(router *http.ServeMux) {
 	h.registerAccountRoute(router)
+	h.registerActorRoute(router)
+	// url := "http://localhost:8080/api/doc/static/swagger.json"
 
-	router.HandleFunc("/swagger/*", httpSwagger.Handler(
-		httpSwagger.URL("http://localhost:8080/swagger/doc.json"),
-	))
+	router.HandleFunc("/swagger/*", httpSwagger.WrapHandler)
 }

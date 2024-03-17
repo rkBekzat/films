@@ -10,6 +10,25 @@ definitions:
     - email
     - password
     type: object
+  handler.signUpInput:
+    properties:
+      email:
+        type: string
+      gender:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - gender
+    - password
+    - role
+    - username
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -17,20 +36,7 @@ info:
   title: Film API
   version: "1.0"
 paths:
-  /api/Account/Me:
-    get:
-      consumes:
-      - application/json
-      description: Get information current User
-      produces:
-      - application/json
-      responses: {}
-      security:
-      - ApiKeyAuth: []
-      summary: Information
-      tags:
-      - Account
-  /api/Account/SignIn:
+  /api/account/sign_in:
     post:
       consumes:
       - application/json
@@ -46,6 +52,26 @@ paths:
       - application/json
       responses: {}
       summary: SignIn
+      tags:
+      - Account
+  /api/account/sign_up:
+    post:
+      consumes:
+      - application/json
+      description: sign up the user
+      parameters:
+      - description: credentials
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/handler.signUpInput'
+      produces:
+      - application/json
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Information
       tags:
       - Account
 securityDefinitions:
