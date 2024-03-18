@@ -1,6 +1,6 @@
 basePath: /
 definitions:
-  handler.signInInput:
+  internal_handler.signInInput:
     properties:
       email:
         type: string
@@ -10,7 +10,7 @@ definitions:
     - email
     - password
     type: object
-  handler.signUpInput:
+  internal_handler.signUpInput:
     properties:
       email:
         type: string
@@ -47,7 +47,7 @@ paths:
         name: input
         required: true
         schema:
-          $ref: '#/definitions/handler.signInInput'
+          $ref: '#/definitions/internal_handler.signInInput'
       produces:
       - application/json
       responses: {}
@@ -65,7 +65,7 @@ paths:
         name: input
         required: true
         schema:
-          $ref: '#/definitions/handler.signUpInput'
+          $ref: '#/definitions/internal_handler.signUpInput'
       produces:
       - application/json
       responses: {}

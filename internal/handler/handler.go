@@ -22,7 +22,6 @@ func (h *Handler) RegisterRoute(router *http.ServeMux) {
 	h.registerAccountRoute(router)
 	h.registerActorRoute(router)
 	h.registerFilmRoute(router)
-	// url := "http://localhost:8080/api/doc/static/swagger.json"
 
-	router.HandleFunc("/swagger/*", httpSwagger.WrapHandler)
+	router.HandleFunc("/swagger/", httpSwagger.WrapHandler)
 }

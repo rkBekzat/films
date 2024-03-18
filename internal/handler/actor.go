@@ -17,6 +17,18 @@ func (h *Handler) registerActorRoute(router *http.ServeMux) {
 	router.HandleFunc("/api/actor/film_list", authorizeMiddlWare(h.FilmList, h.service.AuthService))
 }
 
+// ShowAccount godoc
+// @Summary      Show an account
+// @Description  get string by ID
+// @Tags         accounts
+// @Accept       json
+// @Produce      json
+// @Param        id   path      int  true  "Account ID"
+// @Success      200  {object}  model.Account
+// @Failure      400  {object}  httputil.HTTPError
+// @Failure      404  {object}  httputil.HTTPError
+// @Failure      500  {object}  httputil.HTTPError
+// @Router       /api/actor/add [get]
 func (h *Handler) AddActor(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var input model.Actor

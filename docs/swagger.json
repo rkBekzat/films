@@ -29,7 +29,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handler.signInInput"
+                            "$ref": "#/definitions/internal_handler.signInInput"
                         }
                     }
                 ],
@@ -61,7 +61,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handler.signUpInput"
+                            "$ref": "#/definitions/internal_handler.signUpInput"
                         }
                     }
                 ],
@@ -70,7 +70,7 @@
         }
     },
     "definitions": {
-        "handler.signInInput": {
+        "internal_handler.signInInput": {
             "type": "object",
             "required": [
                 "email",
@@ -85,7 +85,7 @@
                 }
             }
         },
-        "handler.signUpInput": {
+        "internal_handler.signUpInput": {
             "type": "object",
             "required": [
                 "email",

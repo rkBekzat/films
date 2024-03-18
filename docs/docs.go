@@ -35,7 +35,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handler.signInInput"
+                            "$ref": "#/definitions/internal_handler.signInInput"
                         }
                     }
                 ],
@@ -67,7 +67,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/handler.signUpInput"
+                            "$ref": "#/definitions/internal_handler.signUpInput"
                         }
                     }
                 ],
@@ -76,7 +76,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "handler.signInInput": {
+        "internal_handler.signInInput": {
             "type": "object",
             "required": [
                 "email",
@@ -91,7 +91,7 @@ const docTemplate = `{
                 }
             }
         },
-        "handler.signUpInput": {
+        "internal_handler.signUpInput": {
             "type": "object",
             "required": [
                 "email",
