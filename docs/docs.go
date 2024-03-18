@@ -208,7 +208,7 @@ const docTemplate = `{
                         "type": "string",
                         "description": "actor ID",
                         "name": "actor_id",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],

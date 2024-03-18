@@ -56,7 +56,7 @@ func (a *actor) FilmedList(id string) ([]model.Film, error) {
 	query := fmt.Sprintf("SELECT title, description, rating FROM %s INNER JOIN %s WHERE %s.id = %s.film_id WHERE %s.actor_id == $1", filmTable, participantsTable, filmTable, participantsTable, participantsTable)
 	err := a.db.Select(&res, query, id)
 	if err != nil {
-		return nil, err 
+		return nil, err
 	}
-	return res, nil 
+	return res, nil
 }

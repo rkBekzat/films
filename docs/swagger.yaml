@@ -179,7 +179,7 @@ paths:
       description: get actor
       parameters:
       - description: actor ID
-        in: path
+        in: query
         name: actor_id
         required: true
         type: string

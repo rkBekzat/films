@@ -79,7 +79,7 @@ func (h *Handler) UpdateActorInfo(w http.ResponseWriter, r *http.Request) {
 // @Tags         actor
 // @Accept       json
 // @Produce      json
-// @Param        actor_id   path      string  true  "actor ID"
+// @Param        actor_id   query      string  true  "actor ID"
 // @Success      200  {object}  model.Actor
 // @Router       /api/actor/get [get]
 func (h *Handler) GetActor(w http.ResponseWriter, r *http.Request) {
@@ -101,7 +101,7 @@ func (h *Handler) GetActor(w http.ResponseWriter, r *http.Request) {
 // @Tags         actor
 // @Accept       json
 // @Produce      json
-// @Param        actor_id   path      string  true  "actor ID"
+// @Param        actor_id   query      string  true  "actor ID"
 // @Success      200  {object}  string
 // @Router       /api/actor/delete [delete]
 func (h *Handler) DeleteActor(w http.ResponseWriter, r *http.Request) {
@@ -123,7 +123,7 @@ func (h *Handler) DeleteActor(w http.ResponseWriter, r *http.Request) {
 // @Tags         actor
 // @Accept       json
 // @Produce      json
-// @Param        text   path      string  true  "actor ID"
+// @Param        text   query      string  true  "actor ID"
 // @Success      200  {object}  []model.Actor
 // @Router       /api/actor/search [get]
 func (h *Handler) SearchActor(w http.ResponseWriter, r *http.Request) {
@@ -145,7 +145,7 @@ func (h *Handler) SearchActor(w http.ResponseWriter, r *http.Request) {
 // @Tags         actor
 // @Accept       json
 // @Produce      json
-// @Param        actor_id   path      int  true  "actor ID"
+// @Param        actor_id   query      int  true  "actor ID"
 // @Success      200  {object}  []model.Film
 // @Router       /api/actor/film_list [get]
 func (h *Handler) FilmList(w http.ResponseWriter, r *http.Request) {

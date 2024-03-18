@@ -53,7 +53,7 @@ func (h *Handler) AddFilm(w http.ResponseWriter, r *http.Request) {
 // @Tags         film
 // @Accept       json
 // @Produce      json
-// @Param        id   path      string  true  "film ID"
+// @Param        id   query      string  true  "film ID"
 // @Success      200  {object}  model.Film
 // @Router       /api/film/info [get]
 func (h *Handler) GetById(w http.ResponseWriter, r *http.Request) {
@@ -80,10 +80,10 @@ func (h *Handler) GetById(w http.ResponseWriter, r *http.Request) {
 // @Tags         film
 // @Accept       json
 // @Produce      json
-// @Param        offset   path     int  true  "offset"
-// @Param        limit   path     int  true  "limit"
-// @Param        order_by   path     string  true  "order by which column"
-// @Param        order   path     string  true  "order ASC or DESC"
+// @Param        offset   query     int  true  "offset"
+// @Param        limit   query     int  true  "limit"
+// @Param        order_by   query     string  true  "order by which column"
+// @Param        order   query     string  true  "order ASC or DESC"
 // @Success      200  {object}  []model.Film
 // @Router       /api/film/list [get]
 func (h *Handler) GetFilms(w http.ResponseWriter, r *http.Request) {
@@ -111,7 +111,7 @@ func (h *Handler) GetFilms(w http.ResponseWriter, r *http.Request) {
 // @Tags         film
 // @Accept       json
 // @Produce      json
-// @Param        text   path     string  true  "search title by text"
+// @Param        text   query     string  true  "search title by text"
 // @Success      200  {object}  []model.Film
 // @Router       /api/film/search [get]
 func (h *Handler) SearchFilm(w http.ResponseWriter, r *http.Request) {
@@ -138,7 +138,7 @@ func (h *Handler) SearchFilm(w http.ResponseWriter, r *http.Request) {
 // @Tags         film
 // @Accept       json
 // @Produce      json
-// @Param        id   path     string  true  "search title by text"
+// @Param        id   query     string  true  "search title by text"
 // @Param		input	body	model.Film	true	"user data"
 // @Success      200  {object}  string
 // @Router       /api/film/update [put]
@@ -171,7 +171,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 // @Tags         actor
 // @Accept       json
 // @Produce      json
-// @Param        id   path      string  true  "actor ID"
+// @Param        id   query      string  true  "actor ID"
 // @Success      200  {object}  string
 // @Router       /api/film/delete [delete]
 func (h *Handler) DeleteFilm(w http.ResponseWriter, r *http.Request) {
