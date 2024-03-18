@@ -9,13 +9,23 @@ import (
 func (h *Handler) registerFilmRoute(router *http.ServeMux) {
 	router.HandleFunc("/api/film/add", authorizeMiddlWare(adminAccess(h.AddFilm), h.service.AuthService))
 	router.HandleFunc("/api/film/update", authorizeMiddlWare(adminAccess(h.Update), h.service.AuthService))
-	router.HandleFunc("/api/film/delete", authorizeMiddlWare(adminAccess(h.Delete), h.service.AuthService))
+	router.HandleFunc("/api/film/delete", authorizeMiddlWare(adminAccess(h.DeleteFilm), h.service.AuthService))
 
 	router.HandleFunc("/api/film/info", authorizeMiddlWare(h.GetById, h.service.AuthService))
 	router.HandleFunc("/api/film/list", authorizeMiddlWare(h.GetFilms, h.service.AuthService))
 	router.HandleFunc("/api/film/search", authorizeMiddlWare(h.SearchFilm, h.service.AuthService))
 }
 
+// ShowAccount godoc
+// @Summary      Add film
+// @Security		ApiKeyAuth
+// @Description  adding film
+// @Tags         film
+// @Accept       json
+// @Produce      json
+// @Param		input	body	model.Film	true	"user data"
+// @Success      200  {object}  string
+// @Router       /api/film/add [post]
 func (h *Handler) AddFilm(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var input model.Film
@@ -36,6 +46,16 @@ func (h *Handler) AddFilm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ShowAccount godoc
+// @Summary      get
+// @Security		ApiKeyAuth
+// @Description  get film by id
+// @Tags         film
+// @Accept       json
+// @Produce      json
+// @Param        id   path      string  true  "film ID"
+// @Success      200  {object}  model.Film
+// @Router       /api/film/info [get]
 func (h *Handler) GetById(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
@@ -53,6 +73,19 @@ func (h *Handler) GetById(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ShowAccount godoc
+// @Summary      get films
+// @Security		ApiKeyAuth
+// @Description  get films proper
+// @Tags         film
+// @Accept       json
+// @Produce      json
+// @Param        offset   path     int  true  "offset"
+// @Param        limit   path     int  true  "limit"
+// @Param        order_by   path     string  true  "order by which column"
+// @Param        order   path     string  true  "order ASC or DESC"
+// @Success      200  {object}  []model.Film
+// @Router       /api/film/list [get]
 func (h *Handler) GetFilms(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
@@ -71,6 +104,16 @@ func (h *Handler) GetFilms(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ShowAccount godoc
+// @Summary      search
+// @Security		ApiKeyAuth
+// @Description  search film by text
+// @Tags         film
+// @Accept       json
+// @Produce      json
+// @Param        text   path     string  true  "search title by text"
+// @Success      200  {object}  []model.Film
+// @Router       /api/film/search [get]
 func (h *Handler) SearchFilm(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
@@ -88,6 +131,17 @@ func (h *Handler) SearchFilm(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// ShowAccount godoc
+// @Summary      update
+// @Security		ApiKeyAuth
+// @Description  update film by text
+// @Tags         film
+// @Accept       json
+// @Produce      json
+// @Param        id   path     string  true  "search title by text"
+// @Param		input	body	model.Film	true	"user data"
+// @Success      200  {object}  string
+// @Router       /api/film/update [put]
 func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var input model.Film
@@ -111,7 +165,16 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
+// @Summary      delete
+// @Security		ApiKeyAuth
+// @Description  deleting film
+// @Tags         actor
+// @Accept       json
+// @Produce      json
+// @Param        id   path      string  true  "actor ID"
+// @Success      200  {object}  string
+// @Router       /api/film/delete [delete]
+func (h *Handler) DeleteFilm(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
 

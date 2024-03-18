@@ -1,6 +1,6 @@
 basePath: /
 definitions:
-  internal_handler.signInInput:
+  handler.signInInput:
     properties:
       email:
         type: string
@@ -10,7 +10,7 @@ definitions:
     - email
     - password
     type: object
-  internal_handler.signUpInput:
+  handler.signUpInput:
     properties:
       email:
         type: string
@@ -28,6 +28,34 @@ definitions:
     - password
     - role
     - username
+    type: object
+  model.Actor:
+    properties:
+      birth_date:
+        type: string
+      gender:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+  model.Film:
+    properties:
+      actors:
+        items:
+          $ref: '#/definitions/model.Actor'
+        type: array
+      description:
+        type: string
+      id:
+        type: string
+      rating:
+        type: number
+      released_at:
+        type: string
+      title:
+        type: string
     type: object
 host: localhost:8080
 info:
@@ -47,7 +75,7 @@ paths:
         name: input
         required: true
         schema:
-          $ref: '#/definitions/internal_handler.signInInput'
+          $ref: '#/definitions/handler.signInInput'
       produces:
       - application/json
       responses: {}
@@ -65,15 +93,321 @@ paths:
         name: input
         required: true
         schema:
-          $ref: '#/definitions/internal_handler.signUpInput'
+          $ref: '#/definitions/handler.signUpInput'
       produces:
       - application/json
       responses: {}
-      security:
-      - ApiKeyAuth: []
       summary: Information
       tags:
       - Account
+  /api/actor/add:
+    post:
+      consumes:
+      - application/json
+      description: adding actor
+      parameters:
+      - description: user data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.Actor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Add actor
+      tags:
+      - actor
+  /api/actor/delete:
+    delete:
+      consumes:
+      - application/json
+      description: deleting actor
+      parameters:
+      - description: actor ID
+        in: path
+        name: actor_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete
+      tags:
+      - actor
+  /api/actor/film_list:
+    get:
+      consumes:
+      - application/json
+      description: filmed actor
+      parameters:
+      - description: actor ID
+        in: path
+        name: actor_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Film'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: films
+      tags:
+      - actor
+  /api/actor/get:
+    get:
+      consumes:
+      - application/json
+      description: get actor
+      parameters:
+      - description: actor ID
+        in: path
+        name: actor_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Actor'
+      security:
+      - ApiKeyAuth: []
+      summary: Get
+      tags:
+      - actor
+  /api/actor/search:
+    get:
+      consumes:
+      - application/json
+      description: adding actor
+      parameters:
+      - description: actor ID
+        in: path
+        name: text
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Actor'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Add actor
+      tags:
+      - actor
+  /api/actor/update:
+    put:
+      consumes:
+      - application/json
+      description: update actor
+      parameters:
+      - description: user data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.Actor'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update
+      tags:
+      - actor
+  /api/film/add:
+    post:
+      consumes:
+      - application/json
+      description: adding film
+      parameters:
+      - description: user data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.Film'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Add film
+      tags:
+      - film
+  /api/film/delete:
+    delete:
+      consumes:
+      - application/json
+      description: deleting film
+      parameters:
+      - description: actor ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: delete
+      tags:
+      - actor
+  /api/film/info:
+    get:
+      consumes:
+      - application/json
+      description: get film by id
+      parameters:
+      - description: film ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Film'
+      security:
+      - ApiKeyAuth: []
+      summary: get
+      tags:
+      - film
+  /api/film/list:
+    get:
+      consumes:
+      - application/json
+      description: get films proper
+      parameters:
+      - description: offset
+        in: path
+        name: offset
+        required: true
+        type: integer
+      - description: limit
+        in: path
+        name: limit
+        required: true
+        type: integer
+      - description: order by which column
+        in: path
+        name: order_by
+        required: true
+        type: string
+      - description: order ASC or DESC
+        in: path
+        name: order
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Film'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: get films
+      tags:
+      - film
+  /api/film/search:
+    get:
+      consumes:
+      - application/json
+      description: search film by text
+      parameters:
+      - description: search title by text
+        in: path
+        name: text
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Film'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: search
+      tags:
+      - film
+  /api/film/update:
+    put:
+      consumes:
+      - application/json
+      description: update film by text
+      parameters:
+      - description: search title by text
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: user data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.Film'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: update
+      tags:
+      - film
 securityDefinitions:
   ApiKeyAuth:
     in: header

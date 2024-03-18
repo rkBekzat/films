@@ -13,7 +13,6 @@ func (h *Handler) registerAccountRoute(router *http.ServeMux) {
 }
 
 // @Summary		Information
-// @Security		ApiKeyAuth
 // @Tags			Account
 // @Accept			json
 // @Produce		json

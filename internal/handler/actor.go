@@ -18,17 +18,15 @@ func (h *Handler) registerActorRoute(router *http.ServeMux) {
 }
 
 // ShowAccount godoc
-// @Summary      Show an account
-// @Description  get string by ID
-// @Tags         accounts
+// @Summary      Add actor
+// @Security		ApiKeyAuth
+// @Description  adding actor
+// @Tags         actor
 // @Accept       json
 // @Produce      json
-// @Param        id   path      int  true  "Account ID"
-// @Success      200  {object}  model.Account
-// @Failure      400  {object}  httputil.HTTPError
-// @Failure      404  {object}  httputil.HTTPError
-// @Failure      500  {object}  httputil.HTTPError
-// @Router       /api/actor/add [get]
+// @Param		input	body	model.Actor	true	"user data"
+// @Success      200  {object}  string
+// @Router       /api/actor/add [post]
 func (h *Handler) AddActor(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var input model.Actor
@@ -46,6 +44,15 @@ func (h *Handler) AddActor(w http.ResponseWriter, r *http.Request) {
 	sendResponse(id, w)
 }
 
+// @Summary      update
+// @Security		ApiKeyAuth
+// @Description  update actor
+// @Tags         actor
+// @Accept       json
+// @Produce      json
+// @Param		input	body	model.Actor	true	"user data"
+// @Success      200  {object}  string
+// @Router       /api/actor/update [put]
 func (h *Handler) UpdateActorInfo(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	var input model.Actor
@@ -66,6 +73,15 @@ func (h *Handler) UpdateActorInfo(w http.ResponseWriter, r *http.Request) {
 	sendResponse("ok", w)
 }
 
+// @Summary      Get
+// @Security		ApiKeyAuth
+// @Description  get actor
+// @Tags         actor
+// @Accept       json
+// @Produce      json
+// @Param        actor_id   path      string  true  "actor ID"
+// @Success      200  {object}  model.Actor
+// @Router       /api/actor/get [get]
 func (h *Handler) GetActor(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
@@ -79,6 +95,15 @@ func (h *Handler) GetActor(w http.ResponseWriter, r *http.Request) {
 	sendResponse(res, w)
 }
 
+// @Summary      delete
+// @Security		ApiKeyAuth
+// @Description  deleting actor
+// @Tags         actor
+// @Accept       json
+// @Produce      json
+// @Param        actor_id   path      string  true  "actor ID"
+// @Success      200  {object}  string
+// @Router       /api/actor/delete [delete]
 func (h *Handler) DeleteActor(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
@@ -92,6 +117,15 @@ func (h *Handler) DeleteActor(w http.ResponseWriter, r *http.Request) {
 	sendResponse("ok", w)
 }
 
+// @Summary      Add actor
+// @Security		ApiKeyAuth
+// @Description  adding actor
+// @Tags         actor
+// @Accept       json
+// @Produce      json
+// @Param        text   path      string  true  "actor ID"
+// @Success      200  {object}  []model.Actor
+// @Router       /api/actor/search [get]
 func (h *Handler) SearchActor(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
@@ -105,6 +139,15 @@ func (h *Handler) SearchActor(w http.ResponseWriter, r *http.Request) {
 	sendResponse(res, w)
 }
 
+// @Summary      films
+// @Security		ApiKeyAuth
+// @Description  filmed actor
+// @Tags         actor
+// @Accept       json
+// @Produce      json
+// @Param        actor_id   path      int  true  "actor ID"
+// @Success      200  {object}  []model.Film
+// @Router       /api/actor/film_list [get]
 func (h *Handler) FilmList(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	params := r.URL.Query()
